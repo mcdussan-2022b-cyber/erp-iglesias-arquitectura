@@ -1,23 +1,31 @@
 package com.iglesia;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "people")
 public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El nombre es obligatorio")
     @Column(nullable = false)
     private String firstName;
 
+    @NotBlank(message = "El apellido es obligatorio")
     @Column(nullable = false)
     private String lastName;
 
     private String document;
+
     private String phone;
+
+    @Email(message = "El correo debe tener un formato válido")
     private String email;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
